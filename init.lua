@@ -54,7 +54,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',     -- latest stable release
+    '--branch=stable', -- latest stable release
     lazypath,
   }
 end
@@ -159,8 +159,8 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     'folke/tokyonight.nvim',
-    lazy = false,        -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000,     -- make sure to load this before all the other start plugins
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
       vim.cmd.colorscheme 'tokyonight-storm'
@@ -225,6 +225,20 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  { 'christoomey/vim-tmux-navigator', lazy = false },
+  {
+    "voldikss/vim-floaterm",
+    config = function()
+      vim.keymap.set(
+        "n",
+        "<leader>ft",
+        "<cmd>:FloatermNew --height=0.8 --width=0.8 --wintype=float --name=floatterm1 --position=center --title=\\ Floatterm\\ ($1/$2)\\  --titleposition=center --autoclose=2<CR>",
+        { desc = "Open FloatTerm" }
+      )
+      vim.keymap.set("n", "<leader>flt", "<cmd>:FloatermToggle floatterm1<CR>", { desc = "Toggle FloatTerm" })
+      vim.keymap.set("t", "<leader>flt", "<cmd>:FloatermToggle floatterm1<CR>", { desc = "Toggle FloatTerm" })
+    end,
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -242,6 +256,9 @@ require('lazy').setup({
 }, {})
 
 vim.opt.conceallevel = 1
+
+-- Exit terminal mode shortcut
+vim.keymap.set("t", "<C-t>", "<C-\\><C-n>")
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -422,7 +439,7 @@ vim.defer_fn(function()
     textobjects = {
       select = {
         enable = true,
-        lookahead = true,         -- Automatically jump forward to textobj, similar to targets.vim
+        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
           ['aa'] = '@parameter.outer',
@@ -435,7 +452,7 @@ vim.defer_fn(function()
       },
       move = {
         enable = true,
-        set_jumps = true,         -- whether to set jumps in the jumplist
+        set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           [']m'] = '@function.outer',
           [']]'] = '@class.outer',

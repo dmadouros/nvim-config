@@ -24,10 +24,15 @@ return {
     opts = {
       options = {
         icons_enabled = false,
+        globalstatus = false,
         theme = 'tokyonight',
-        component_separators = '|',
-        section_separators = '',
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
       },
+      sections = {
+        lualine_x = { 'encoding', 'fileformat', { 'filetype', colored = true, icon_only = true } },
+      },
+      extensions = { 'neo-tree' },
     },
   },
   {
